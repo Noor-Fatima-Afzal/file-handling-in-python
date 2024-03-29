@@ -1,22 +1,3 @@
-import os
-
-def manue():
-    while True:
-        try:
-            return int(input("\n What do you want to do ? \n 1.register student \n 2. mark attendance\n 3. check eligibility "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-
-try:
-    if os.path.exists("count_att.txt"):
-        with open("count_att.txt","r") as filepointer:
-            count_att=int(filepointer.read())
-    else:
-        count_att = 0
-except Exception as e:
-    print(f"Error reading count_att.txt: {e}")
-    count_att = 0
-
 def register_student():
     student=input("Enter name of student: ")
     with open("students.txt","a") as filepointer:
@@ -61,24 +42,24 @@ def check_eligibility(name_of_student):
     else:
         print(f"No attendance records found for {name_of_student}.")
 
-manue()
+manue = int(input("\n What do you want to do ? \n 1. Register student \n 2. Mark attendance\n 3. Check eligibility \n 0. Do nothing\n"))
 
+count_att=0
 
 while True:
-    choice = manue()
-    if choice == 1:
+    if manue == 1:
         register_student()
-        manue()
-    elif choice == 2:
+    elif manue == 2:
         mark_attendance()
         count_att += 1
-        with open("count_att.txt","w") as filepointer:
+        with open("count_att.txt", "a") as filepointer:
             filepointer.write(str(count_att))
         count_attendance()
-        manue()
-    elif choice == 3:
-        name_of_student = input("Enter the name of the student: ")
-        check_eligibility(name_of_student)
-        manue()
+    elif manue == 3:
+        check_eligibility(input("Enter name of student: "))
+    elif manue == 0:
+        break
     else:
-        print("Please choose option within the menu ! ")
+        print("Invalid choice")
+    
+    manue = int(input("\n What do you want to do ? \n 1. Register student \n 2. Mark attendance\n 3. Check eligibility \n 0. Do nothing\n"))
