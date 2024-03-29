@@ -1,14 +1,13 @@
-# Write a Python program that searches for a specific keyword or pattern in a
-# directory of text files and displays the file names and line numbers where the
-# keyword or pattern is found.
-
 import os
 
-list_of_files=os.listdir("directory of txt files")
+dir_path="directory of txt files"
+list_of_files=os.listdir(dir_path)
 for file in list_of_files:
-    with open(file,"r") as filepointer:
+    file_path=f"{dir_path}/{file}"
+    with open(file_path,"r") as filepointer:
         lines=filepointer.readlines()
-        for line in lines:
-            for word in line:
-                if word=="noor":
-                    
+        for line_number,line in enumerate(lines,0):
+            if "noorfatima" in line:
+                print(f"noor is present in line no: {line_number+1} of {file}")
+                
+
