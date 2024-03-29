@@ -31,7 +31,7 @@ def check_eligibility(name_of_student):
         att = name_count[name_of_student]
         print(att)
         try:
-            percentage=(att/count_att)*100
+            percentage=(att/total_attendance)*100
         except Exception as e:
             print(e)
             percentage=(att/1)*100
@@ -46,16 +46,22 @@ manue = int(input("\n What do you want to do ? \n 1. Register student \n 2. Mark
 
 count_att=0
 
+count_attendance()
+
 while True:
     if manue == 1:
         register_student()
     elif manue == 2:
         mark_attendance()
-        count_att += 1
         with open("count_att.txt", "a") as filepointer:
-            filepointer.write(str(count_att))
+            filepointer.write('1' + "\n")
         count_attendance()
     elif manue == 3:
+        total_attendance = 0
+        with open("count_att.txt", "r") as filepointer:
+            for line in filepointer:
+                total_attendance += int(line.strip()) 
+        print(f"Total attendance count: {total_attendance}")
         check_eligibility(input("Enter name of student: "))
     elif manue == 0:
         break
