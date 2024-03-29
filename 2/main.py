@@ -1,5 +1,11 @@
 import os
 
+def manue():
+    manue_choice = int(input("\n What do you want to do ? \n 1.register student \n 2. mark attendance\n 3. check eligibility "))
+    return manue_choice
+
+manue()
+
 def register_student():
     student=input("Enter name of student: ")
     with open("students.txt","a") as filepointer:
@@ -40,12 +46,6 @@ def check_eligibility(name_of_student):
         else:
             print(f"Alas ! {name_of_student} is not eligible to sit in exam! ")
 
-def manue():
-    manue_choice = int(input("\n What do you want to do ? \n 1.register student \n 2. mark attendance\n 3. check eligibility "))
-    return manue_choice
-
-count_attendance()
-
 if os.path.exists("count_att.txt"):
     with open("count_att","r") as filepointer:
         count_att=int(filepointer.read())
@@ -61,6 +61,7 @@ while True:
         count_att += 1
         with open("count_att.txt","w") as filepointer:
             filepointer.write(str(count_att))
+        count_att()
     elif choice == 3:
         name_of_student = input("Enter the name of the student: ")
         check_eligibility(name_of_student)
