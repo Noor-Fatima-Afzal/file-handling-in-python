@@ -1,13 +1,18 @@
 import os
 
-dir_path="directory of txt files"
-list_of_files=os.listdir(dir_path)
-for file in list_of_files:
-    file_path=f"{dir_path}/{file}"
-    with open(file_path,"r") as filepointer:
-        lines=filepointer.readlines()
-        for line_number,line in enumerate(lines,0):
-            if "noorfatima" in line:
-                print(f"noor is present in line no: {line_number+1} of {file}")
-                
-
+try:
+    dir=input("Enter the directory path to search: ")
+    file_names_list=os.listdir(dir)
+    keyword=input("Enter the keyword or pattern to search for: ")
+    for file in file_names_list:
+        if file.endswith(".txt"):
+            file_path=os.path.join(dir,file)    
+            with open(file_path,"r") as filepointer:
+                lines=filepointer.readlines()
+                line_num=0
+                for line in lines:
+                    line_num+=1
+                    if keyword in line:
+                        print(f" on Line {line_num} Keyword '{keyword}' found in file: {file}")
+except FileNotFoundError:
+    print("Directory not found.")

@@ -55,7 +55,7 @@ while True:
         mark_attendance()
         with open("count_att.txt", "a") as filepointer:
             filepointer.write('1' + "\n")
-        count_attendance()
+        count_attendance() #dic ko update karna hai
     elif manue == 3:
         total_attendance = 0
         with open("count_att.txt", "r") as filepointer:
