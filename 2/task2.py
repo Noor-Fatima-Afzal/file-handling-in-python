@@ -11,27 +11,36 @@ def mark_attendance():
             if line:
                 att=input(f"{line} is present or absent? P/A ").capitalize()
                 if att=="P":
-                    with open("attendace.txt","a") as filepointer:
+                    with open("attendance.txt","a") as filepointer:
                         filepointer.write(line+"\n")
 
 name_count={}
 
 def count_attendance():
-    with open("attendace.txt","r") as filepointer:
-        lines=filepointer.readlines()
-        for line in lines:
-            line=line.strip()
-            if line in name_count:
-                name_count[line]+=1
-            else:
-                name_count[line]=1
+    name_count.clear()
+    try:
+        with open("attendance.txt", "r") as filepointer:
+            lines = filepointer.readlines()
+            for line in lines:
+                line = line.strip()
+                if line:
+                    if line in name_count:
+                        name_count[line] += 1
+                    else:
+                        name_count[line] = 1
+    except FileNotFoundError:
+        print("No attendance data found.")
 
 def check_eligibility(name_of_student):
     if name_of_student in name_count:
         att = name_count[name_of_student]
         print(att)
         try:
+            if total_attendance == 0:
+                print("No classes have been held yet.")
+                return
             percentage=(att/total_attendance)*100
+            print(percentage)
         except Exception as e:
             print(e)
             percentage=(att/1)*100
@@ -46,7 +55,7 @@ manue = int(input("\n What do you want to do ? \n 1. Register student \n 2. Mark
 
 count_att=0
 
-count_attendance()
+# count_attendance()
 
 while True:
     if manue == 1:
